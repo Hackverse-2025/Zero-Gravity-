@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Darknet Traffic Monitor</title>
+</head>
+<body>
+    <h1>Darknet Traffic Dashboard</h1>
+
+    <h2>Detected Darknet Traffic</h2>
+    <table border="1">
+        <tr><th>Source IP</th><th>Destination IP</th><th>Traffic Type</th></tr>
+        {% for row in data %}
+        <tr>
+            <td>{{ row.src_ip }}</td>
+            <td>{{ row.dst_ip }}</td>
+            <td>{{ row.category }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Check IP Threat Intelligence</h2>
+    <form action="/check_ip" method="post">
+        <input type="text" name="ip" placeholder="Enter IP">
+        <button type="submit">Check IP</button>
+    </form>
+
+    {% if ip_result %}
+        <h3>Threat Intelligence Result</h3>
+        <pre>{{ ip_result }}</pre>
+    {% endif %}
+
+    <h2>Generate Report</h2>
+    <a href="/generate_report">Download PDF Report</a>
+</body>
+</html>
